@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  height: 100vh;
+  margin: 0 auto;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+} */
