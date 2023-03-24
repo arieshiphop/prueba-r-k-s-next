@@ -1,5 +1,7 @@
 'use client'
 import styled from 'styled-components';
+import { isLoading } from '@/store/isLoading.store';
+import LoadingIndicator from './LoadingIndicator';
 
 const Title = styled.h1`
   font-size: 1.5rem;
@@ -16,11 +18,13 @@ const TopBar = styled.header`
 `;
 
 export default function Header() {
+    const loadingStore = isLoading.getInstance();
     return (
         <TopBar>
             <Title>
                 Podcaster
             </Title>
+            {loadingStore.getLoading() === true ? <LoadingIndicator /> : null}
         </TopBar>
     )
 }
