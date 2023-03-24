@@ -3,7 +3,6 @@ import '../../../styles/globals.css'
 import { useEffect, useState } from 'react';
 import LateralInfo from '@/app/components/LateralInfo';
 import styled from 'styled-components';
-import { Suspense } from 'react';
 import CustomLink from '@/app/components/CustomLink';
 import CacheService from '@/services/CacheService';
 const StyledContainer = styled.div`
@@ -66,7 +65,6 @@ export default function PodcastDetailPage({ params }) {
 }, []);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
     <StyledContainer>
         {podcastInfo && <LateralInfo podcast={podcastInfo[0]} />}
         <ul>
@@ -94,6 +92,5 @@ export default function PodcastDetailPage({ params }) {
             </StyledTable>
         </ul>
     </StyledContainer>
-    </Suspense>
     );
 }
