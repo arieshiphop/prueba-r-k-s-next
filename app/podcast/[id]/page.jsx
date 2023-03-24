@@ -52,17 +52,23 @@ export default function PodcastDetailPage({ params }) {
     useEffect(() => {
         async function fetchData() {
             if (cache.has(url)) {
-                setPodcastInfo(cache.get(url));
+                const data = cache.get(url);
+                setPodcastInfo(data);
+                localStorage.setItem('podcastInfo', JSON.stringify(data))
             } else {
                 const res = await fetch(url);
                 const data = await res.json();
                 console.log(JSON.parse(data.contents).results.slice(1));
                 setPodcastInfo(JSON.parse(data.contents).results.slice(1));
                 cache.set(url, JSON.parse(data.contents).results.slice(1));
+                localStorage.setItem('podcastInfo', JSON.stringify(JSON.parse(data.contents).results.slice(1)))
             }
         }
     fetchData()
 }, []);
+    const handleClick = () => {
+        console.log('click');
+    }
 
   return (
     <StyledContainer>
@@ -80,7 +86,7 @@ export default function PodcastDetailPage({ params }) {
                 {podcastInfo && podcastInfo.map((podcast) => (
                     <tr key={podcast.trackId}>
                         <td>
-                            <CustomLink href={`/podcast/${params.id}/episode/${podcast.trackId}`}>
+                            <CustomLink href={`/podcast/${params.id}/episode/${podcast.trackId}`} onClick={handleClick}>
                                 {podcast.trackName}
                             </CustomLink>
                         </td>
@@ -92,5 +98,5 @@ export default function PodcastDetailPage({ params }) {
             </StyledTable>
         </ul>
     </StyledContainer>
-    );
+     );
 }

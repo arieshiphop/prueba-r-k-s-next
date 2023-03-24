@@ -1,15 +1,13 @@
 import styled from "styled-components";
-
+import CustomLink from "./CustomLink";
 const StyledLateralInfo = styled.div`
     display: flex;
     flex-direction: column;
     width: 20%;
-    height: 100%;
     border-radius: 10px;
     padding: 20px;
-    margin: 10px;
+    margin-left:20px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
 `
 
 const Title = styled.h2`
@@ -40,7 +38,9 @@ export default function LateralInfo({podcast}) {
     const podcastData = JSON.parse(localStorage.getItem('podcastData'));
     return (
         <StyledLateralInfo>
-            <img src={podcast.artworkUrl160} alt={podcast.collectionName} />
+            <CustomLink href={`/podcast/${podcast.collectionId}`}>
+                <img src={podcast.artworkUrl160} alt={podcast.collectionName} />
+            </CustomLink>
             <SeparatorLine/>
             <Title>{podcast.collectionName}</Title>
             <Author>by {podcastData['im:artist'].label}</Author>
