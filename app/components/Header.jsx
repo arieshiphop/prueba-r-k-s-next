@@ -1,11 +1,11 @@
 'use client'
 import styled from 'styled-components';
-import { isLoading } from '@/store/isLoading.store';
-import LoadingIndicator from './LoadingIndicator';
-
+import CustomLink from './CustomLink';
 const Title = styled.h1`
   font-size: 1.5rem;
   color: #4a658f;
+  text-decoration: none;
+  border:0;
 `;
 const TopBar = styled.header`
     display:flex;
@@ -18,13 +18,13 @@ const TopBar = styled.header`
 `;
 
 export default function Header() {
-    const loadingStore = isLoading.getInstance();
     return (
         <TopBar>
-            <Title>
-                Podcaster
-            </Title>
-            {loadingStore.getLoading() === true ? <LoadingIndicator /> : null}
+            <CustomLink href="/">
+                <Title>
+                    Podcaster
+                </Title>
+            </CustomLink>
         </TopBar>
     )
 }
