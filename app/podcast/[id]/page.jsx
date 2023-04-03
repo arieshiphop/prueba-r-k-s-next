@@ -49,23 +49,28 @@ export default function PodcastDetailPage({ params }) {
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
       }
-    useEffect(() => {
+      useEffect(() => {
         async function fetchData() {
-            if (cache.has(url)) {
-                const data = cache.get(url);
-                setPodcastInfo(data);
-                localStorage.setItem('podcastInfo', JSON.stringify(data))
+          try {
+            const cachedData = cache.get(url);
+            if (cachedData) {
+              setPodcastInfo(cachedData);
+              localStorage.setItem('podcastInfo', JSON.stringify(cachedData));
             } else {
-                const res = await fetch(url);
-                const data = await res.json();
-                console.log(JSON.parse(data.contents).results.slice(1));
-                setPodcastInfo(JSON.parse(data.contents).results.slice(1));
-                cache.set(url, JSON.parse(data.contents).results.slice(1));
-                localStorage.setItem('podcastInfo', JSON.stringify(JSON.parse(data.contents).results.slice(1)))
+              const response = await fetch(url);
+              const data = await response.json();
+              const podcastData = JSON.parse(data.contents).results.slice(1);
+              setPodcastInfo(podcastData);
+              cache.set(url, podcastData);
+              localStorage.setItem('podcastInfo', JSON.stringify(podcastData));
             }
+          } catch (error) {
+            console.error(error);
+          }
         }
-    fetchData()
-}, []);
+      
+        fetchData();
+      }, []);
     const handleClick = () => {
         console.log('click');
     }

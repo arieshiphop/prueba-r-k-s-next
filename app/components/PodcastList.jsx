@@ -1,13 +1,26 @@
 'use client'
 import { useEffect, useState } from "react";
 import CacheService from "@/services/CacheService";
-import GridSection from "./GridSection";
 import Podcast from "./Podcast";
 import SearchInput from "./SearchInput";
-import TopDiv from "./TopDiv";
+import styled from "styled-components";
 
+const GridSection = styled.section`
+    display:grid;
+    gap:1rem;
+    grid-template-columns:repeat(auto-fit, minmax(10rem, 1fr));
+    height:100%;
+    width:100%;
+`;
+const TopDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    width:100%;
+    margin-bottom: 1rem;
+`
 const PODCASTS_URL = "https://api.allorigins.win/get?url=" + encodeURIComponent("https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json");
-
 const cache = CacheService.getInstance().cache;
 
 export default function PodcastList() {
@@ -16,18 +29,22 @@ export default function PodcastList() {
 
   useEffect(() => {
     async function fetchPodcasts() {
-      const cachedData = cache.get(PODCASTS_URL);
-      if (cachedData) {
-        setRawPodcasts(cachedData);
-      } else {
+      try {
         const response = await fetch(PODCASTS_URL);
         const data = await response.json();
-        cache.set(PODCASTS_URL, data);
         setRawPodcasts(data);
+        cache.set(PODCASTS_URL, data);
+      } catch (error) {
+        console.error(error);
       }
     }
-
-    fetchPodcasts();
+  
+    const cachedData = cache.get(PODCASTS_URL);
+    if (cachedData) {
+      setRawPodcasts(cachedData);
+    } else {
+      fetchPodcasts();
+    }
   }, []);
 
   const filterPodcasts = (podcast) => {
