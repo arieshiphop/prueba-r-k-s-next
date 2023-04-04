@@ -13,7 +13,6 @@ export default function CustomLink({ href, children }) {
 
   const handleClick = () => {
     loadingStore.setLoading(true);
-    console.log("loading");
   };
 
   useEffect(() => {

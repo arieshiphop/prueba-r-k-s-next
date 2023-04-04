@@ -10,7 +10,6 @@ const StyledInput = styled.input`
 export default function SearchInput({setSearchTerm}) {
     const handleChange = (e) => {
         setSearchTerm(e.target.value)
-        console.log(e.target.value)
     }
     return (
         <StyledInput type="text" placeholder='Filter podcast' onChange={handleChange}/>

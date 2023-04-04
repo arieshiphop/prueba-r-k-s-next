@@ -33,7 +33,6 @@ const StyledP = styled.p`
 
 const savePodcastData = (podcast) => {
   localStorage.setItem("podcastData", JSON.stringify(podcast));
-  console.log("asd", podcast);
 };
 
 export default function Podcast({ podcast }) {

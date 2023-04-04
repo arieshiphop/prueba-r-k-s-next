@@ -71,9 +71,6 @@ export default function PodcastDetailPage({ params }) {
       
         fetchData();
       }, []);
-    const handleClick = () => {
-        console.log('click');
-    }
 
   return (
     <StyledContainer>
@@ -91,7 +88,7 @@ export default function PodcastDetailPage({ params }) {
                 {podcastInfo && podcastInfo.map((podcast) => (
                     <tr key={podcast.trackId}>
                         <td>
-                            <CustomLink href={`/podcast/${params.id}/episode/${podcast.trackId}`} onClick={handleClick}>
+                            <CustomLink href={`/podcast/${params.id}/episode/${podcast.trackId}`} >
                                 {podcast.trackName}
                             </CustomLink>
                         </td>

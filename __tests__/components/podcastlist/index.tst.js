@@ -63,4 +63,20 @@ describe("PodcastList", () => {
     ).toBeInTheDocument();
     expect(screen.queryByText("Another Podcast")).not.toBeInTheDocument();
   });
+  test("Podcast has link to detail", async () => {
+    //test when clicking on a podcast, you go to the podcast page
+    const mockPodcasts = {
+      contents: JSON.stringify(podcastMockJson),
+    };
+    global.fetch.mockImplementationOnce(() =>
+      Promise.resolve({ json: () => Promise.resolve(mockPodcasts) })
+    );
+    await act(async () => {
+      render(<PodcastList />);
+    });
+    const podcast = screen.getByText("The Joe Budden Podcast".toUpperCase());
+    const podcastParent = podcast.parentElement;
+    const parentContainer = podcastParent.parentElement;
+    expect(parentContainer).toHaveAttribute("href", "/podcast/1535809341");
+  });
 });
