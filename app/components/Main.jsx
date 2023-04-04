@@ -8,7 +8,7 @@ const StyledMain = styled.main`
     flex-direction:column;
     gap:1rem;
     padding:1rem;
-    width:100%;
+    width:100vw;
 `
 export default function Main({children}) {
     return (

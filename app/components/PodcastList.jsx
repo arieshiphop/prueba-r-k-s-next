@@ -19,6 +19,16 @@ const TopDiv = styled.div`
     align-items: center;
     width:100%;
     margin-bottom: 1rem;
+    gap:2rem;
+`
+const PodcastLenght = styled.div`
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    background-color: dodgerblue;
+    padding:0.5rem 1rem;
+    border-radius:5px;
 `
 const PODCASTS_URL = "https://api.allorigins.win/get?url=" + encodeURIComponent("https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json");
 const cache = CacheService.getInstance().cache;
@@ -61,6 +71,9 @@ export default function PodcastList() {
   return (
     <div>
       <TopDiv>
+        <PodcastLenght data-testid="podcast-length">
+          {podcastList.length}
+        </PodcastLenght>
         <SearchInput setSearchTerm={setSearchTerm} />
       </TopDiv>
       <GridSection>

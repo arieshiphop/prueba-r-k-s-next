@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import "@testing-library/jest-dom";
 import PodcastList from "../../../app/components/PodcastList";
+
 const podcastMockJson = require("./podcast-mock.json");
 
 const PODCASTS_URL =
@@ -27,6 +28,14 @@ global.fetch = jest.fn(() =>
 );
 
 describe("PodcastList", () => {
+  beforeEach(() => {
+    const mockPodcasts = {
+      contents: JSON.stringify(podcastMockJson),
+    };
+    global.fetch.mockImplementationOnce(() =>
+      Promise.resolve({ json: () => Promise.resolve(mockPodcasts) })
+    );
+  });
   test("renders search input", async () => {
     await act(async () => {
       render(<PodcastList />);
@@ -43,13 +52,6 @@ describe("PodcastList", () => {
   });
 
   test("filters podcasts based on search term", async () => {
-    const mockPodcasts = {
-      contents: JSON.stringify(podcastMockJson),
-    };
-    global.fetch.mockImplementationOnce(() =>
-      Promise.resolve({ json: () => Promise.resolve(mockPodcasts) })
-    );
-
     await act(async () => {
       render(<PodcastList />);
     });
@@ -64,13 +66,6 @@ describe("PodcastList", () => {
     expect(screen.queryByText("Another Podcast")).not.toBeInTheDocument();
   });
   test("Podcast has link to detail", async () => {
-    //test when clicking on a podcast, you go to the podcast page
-    const mockPodcasts = {
-      contents: JSON.stringify(podcastMockJson),
-    };
-    global.fetch.mockImplementationOnce(() =>
-      Promise.resolve({ json: () => Promise.resolve(mockPodcasts) })
-    );
     await act(async () => {
       render(<PodcastList />);
     });
@@ -78,5 +73,12 @@ describe("PodcastList", () => {
     const podcastParent = podcast.parentElement;
     const parentContainer = podcastParent.parentElement;
     expect(parentContainer).toHaveAttribute("href", "/podcast/1535809341");
+  });
+  test("Podcast list lenght div has correct length", async () => {
+    await act(async () => {
+      render(<PodcastList />);
+    });
+    const podcastListLength = screen.getByTestId("podcast-length");
+    expect(podcastListLength).toHaveTextContent("2");
   });
 });
