@@ -5,6 +5,7 @@ import LateralInfo from '@/app/components/LateralInfo';
 import styled from 'styled-components';
 import CustomLink from '@/app/components/CustomLink';
 import CacheService from '@/services/CacheService';
+import { formatDate, milisecsToTime } from '@/utils/utils';
 const StyledContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -36,19 +37,7 @@ const cache = CacheService.getInstance().cache;
 export default function PodcastDetailPage({ params }) {
     const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${params.id}&media=podcast&entity=podcastEpisode&limit=20`)}`
     const [podcastInfo, setPodcastInfo] = useState(null);
-    const milisecsToTime = (milisecs) => {
-        const seconds = Math.floor((milisecs / 1000) % 60).toString().padStart(2, "0");
-        const minutes = Math.floor((milisecs / (1000 * 60)) % 60).toString().padStart(2, "0");
-        const hours = Math.floor((milisecs / (1000 * 60 * 60)) % 24).toString().padStart(2, "0");
-        return hours > 0 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`;
-    }
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
-      }
+    
       useEffect(() => {
         async function fetchData() {
           try {
