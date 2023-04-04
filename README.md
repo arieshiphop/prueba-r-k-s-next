@@ -36,4 +36,9 @@ npm run start
 
 Este comando iniciará el servidor y la aplicación estará disponible en tu navegador en la dirección http://localhost:3000.
 
+### Tests
+Para ejecutar los test basta con ejecutar el comando
+```
+npm run test
+```
 ¡Eso es todo!
