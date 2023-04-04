@@ -1,4 +1,3 @@
-```
 ¡Hola!
 
 Este archivo fue creado por Iker Sánchez y contiene información importante sobre cómo ejecutar esta aplicación en diferentes modos.
@@ -38,4 +37,3 @@ npm run start
 Este comando iniciará el servidor y la aplicación estará disponible en tu navegador en la dirección http://localhost:3000.
 
 ¡Eso es todo!
-```
