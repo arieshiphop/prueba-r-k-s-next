@@ -2,6 +2,8 @@
 import styled from "styled-components";
 import LateralInfo from "@/app/components/LateralInfo";
 import CacheService from "@/services/CacheService.ts";
+import * as DOMPurify from 'dompurify';
+
 const ReproducerDiv = styled.div`
     display: flex;
     flex-direction: column;
@@ -33,7 +35,7 @@ export default function PodcastEpisodePage({params}) {
             <LateralInfo podcast={info[0]} />
             <ReproducerDiv>
                 <h1>{info[0].collectionName}</h1>
-                <p dangerouslySetInnerHTML={{ __html: info[0].shortDescription }}></p>
+                <p>{DOMPurify.sanitize(info[0].shortDescription)}</p>
                 <AudioPlayer controls>
                     <source src={info[0].previewUrl} type="audio/mpeg"/>
                 </AudioPlayer>

@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "dompurify": "^3.0.1",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "jest-fetch-mock": "^3.0.3",
