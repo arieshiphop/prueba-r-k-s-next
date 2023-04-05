@@ -19,7 +19,7 @@ export default function CustomLink({ href, children }) {
     return () => {
       loadingStore.setLoading(false);
     };
-  }, []);
+  });
 
   return (
     <StyledLink href={href} onClick={handleClick}>

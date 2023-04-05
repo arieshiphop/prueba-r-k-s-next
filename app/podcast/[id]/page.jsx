@@ -59,7 +59,7 @@ export default function PodcastDetailPage({ params }) {
         }
       
         fetchData();
-      }, []);
+      });
 
   return (
     <StyledContainer>
