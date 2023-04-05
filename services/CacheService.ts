@@ -6,6 +6,7 @@ class CacheService {
     if (cachedData && cacheDate && Date.now() - cacheDate < CACHE_DURATION) {
       return cachedData;
     } else {
+      console.log("Cache expired");
       return null;
     }
   }

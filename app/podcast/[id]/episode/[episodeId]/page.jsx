@@ -1,7 +1,7 @@
 'use client'
 import styled from "styled-components";
 import LateralInfo from "@/app/components/LateralInfo";
-import CacheService from "@/services/CacheService";
+import CacheService from "@/services/CacheService.ts";
 const ReproducerDiv = styled.div`
     display: flex;
     flex-direction: column;
@@ -25,9 +25,9 @@ const FlexDiv = styled.div`
     height: 100%;
     gap:4rem;
 `
-export default function PodcastEpisodePage() {
-    const info = CacheService.get('podcastInfo');
-   
+export default function PodcastEpisodePage({params}) {
+    const info = CacheService.get('podcastInfo-' + params.id);
+    console.log(info)
     return (
         <FlexDiv>
             <LateralInfo podcast={info[0]} />
